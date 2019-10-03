@@ -15,23 +15,27 @@
 <body>
 	<div class="container">
 		<div class="row">
-			
+
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-			<h1>Bank Login System</h1>
-				<form:form action="login" modelAttribute="user">
+				<h1>Bank Login System</h1>
+				<form:form action="requestMoney" modelAttribute="withdrawl">
 					<div class="input-group">
-						Username :
-						<form:input class="form-control" path="userName" />
+						Account Number :
+						<form:input class="form-control" path="accountNumber" />
 					</div>
 
 					<div class="input-group">
-						Password :
-						<form:input class="form-control" path="password" />
+						Amount :
+						<form:input class="form-control" path="amount" />
 					</div>
 
-					<input class="btn btn-primary" type="submit" value="Login" />
+					<div class="input-group">
+						Reason :
+						<form:input class="form-control" path="reason" />
+					</div>
 
+					<input class="btn btn-primary" type="submit" value="Request" />
 				</form:form>
 				${message}
 			</div>

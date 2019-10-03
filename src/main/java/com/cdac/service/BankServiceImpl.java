@@ -1,8 +1,11 @@
 package com.cdac.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cdac.bean.AmountWithdrawl;
 import com.cdac.bean.User;
 import com.cdac.dao.IBankDao;
 
@@ -15,6 +18,16 @@ public class BankServiceImpl implements IBankService{
 	@Override
 	public User login(User user) {
 		return iBankDao.login(user);
+	}
+
+	@Override
+	public int withDrawlMoney(AmountWithdrawl amountWithdrawl) {
+		return iBankDao.withDrawlMoney(amountWithdrawl);
+	}
+
+	@Override
+	public List<AmountWithdrawl> getRequestList() {
+		return iBankDao.getRequestList();
 	}
 
 }
