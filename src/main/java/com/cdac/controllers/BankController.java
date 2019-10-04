@@ -73,4 +73,12 @@ public class BankController {
 		model.addAttribute("list", list);
 		return "monitorAllTransaction";		
 	}
+	
+	@RequestMapping(value="/viewUserRequests")
+	public String viewUserRequest(Model model, HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		List<AmountWithdrawl> requestList = iBankService.getUserRequest(user.getUserName());
+		model.addAttribute("list", requestList);
+		return "viewUserRequest";
+	}
 }

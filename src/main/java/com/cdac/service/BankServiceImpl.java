@@ -44,6 +44,11 @@ public class BankServiceImpl implements IBankService{
 	public List<AmountWithdrawl> viewAllRequest() {
 		return iBankDao.viewAllRequest();
 	}
+
+	@Override
+	public List<AmountWithdrawl> getUserRequest(String userName) {
+		return iBankDao.getUserRequest(userName);
+	}
 	
 	
 

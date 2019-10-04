@@ -97,6 +97,23 @@ public class BankDaoImpl implements IBankDao{
 			}    
 		});
 	}
+
+
+
+	@Override
+	public List<AmountWithdrawl> getUserRequest(String userName) {
+		return jdbcTemplate.query("select * from banktransaction where username='"+userName+"'",new RowMapper<AmountWithdrawl>(){    
+			public AmountWithdrawl mapRow(ResultSet rs, int row) throws SQLException {    
+				AmountWithdrawl amountWithdrawl=new AmountWithdrawl();    
+				amountWithdrawl.setId(rs.getInt(1));
+				amountWithdrawl.setAccountNumber(rs.getString(2));
+				amountWithdrawl.setAmount(rs.getInt(3));
+				amountWithdrawl.setReason(rs.getString(4));
+				amountWithdrawl.setPaymentStatus(rs.getString(5));
+				return amountWithdrawl;    
+			}    
+		});
+	}
 	
 	
 

@@ -17,4 +17,6 @@ public interface IBankService {
 	public void rejectRequest(int id);
 
 	public List<AmountWithdrawl> viewAllRequest();
+
+	public List<AmountWithdrawl> getUserRequest(String userName);
 }

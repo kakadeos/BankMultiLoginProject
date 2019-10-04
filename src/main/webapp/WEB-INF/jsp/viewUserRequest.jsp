@@ -13,34 +13,37 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+<!-- Header File Navbar  -->
+<%@ include file="header.jsp"%>
+<!-- Header File Navbar End -->
+
 	<div class="container">
 		<div class="row">
-			
-			<div class="col-md-4"></div>
-			<div class="col-md-4">
-			<h1>Bank Login System</h1>
-				<form:form action="login" modelAttribute="user">
-					<div class="input-group">
-						Username :
-						<form:input class="form-control" path="userName" />
-					</div>
-
-					<div class="input-group">
-						Password :
-						<form:input class="form-control" path="password" />
-					</div>
-					<br>
-					<input class="btn btn-primary" type="submit" value="Login" />
-
-				</form:form>
-				${message}
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+			<h1>User Request</h1>
+				<table border="2" width="100%" cellpadding="2">
+					<tr>
+						<th>ID</th>
+						<th>Account Number</th>
+						<th>Amount</th>
+						<th>Reason</th>
+						<th>Status</th>
+					</tr>
+					<c:forEach var="request" items="${list}">
+						<tr>
+						<th>${request.id}</th>
+						<th>${request.accountNumber}</th>
+						<th>${request.amount}</th>
+						<th>${request.reason}</th>
+						<th>${request.paymentStatus}</th>
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
-			<div class="col-md-4"></div>
-
+			<div class="col-md-1"></div>
 		</div>
 	</div>
-
-
 	<!-- Bootstrap JS -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

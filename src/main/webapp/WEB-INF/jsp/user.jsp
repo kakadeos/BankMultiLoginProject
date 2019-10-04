@@ -7,4 +7,5 @@
 <h4>Username : ${user.userName}</h4>
 
 
-<a href="withdrawl">Withdraw Money</a>
+<a href="withdrawl">Submit Claim</a>
+<a href="viewUserRequests">View My Request</a>

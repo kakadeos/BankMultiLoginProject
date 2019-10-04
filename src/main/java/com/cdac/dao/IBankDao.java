@@ -19,4 +19,6 @@ public interface IBankDao {
 
 	public List<AmountWithdrawl> viewAllRequest();
 
+	public List<AmountWithdrawl> getUserRequest(String userName);
+
 }
