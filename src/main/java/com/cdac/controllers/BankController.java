@@ -2,6 +2,8 @@ package com.cdac.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cdac.bean.AmountWithdrawl;
+import com.cdac.bean.User;
 import com.cdac.service.IBankService;
 
 @Controller
@@ -21,15 +24,16 @@ public class BankController {
 	
 		
 	@RequestMapping(value = "/withdrawl", method=RequestMethod.GET)
-	public String withdrawlMoney(Model model) {
+	public String withdrawlMoney(Model model, HttpSession session) {
+		model.addAttribute("user", session.getAttribute("user"));
 		model.addAttribute("withdrawl", new AmountWithdrawl());
 		return "amountWithdrawlForm";
 		
 	}
 	
 	@RequestMapping(value = "/requestMoney", method = RequestMethod.POST)
-	public String MoneyRequest(@ModelAttribute("amountWithdrawl") AmountWithdrawl amountWithdrawl, Model model) {
-		int result = iBankService.withDrawlMoney(amountWithdrawl);
+	public String MoneyRequest(@ModelAttribute("amountWithdrawl") AmountWithdrawl amountWithdrawl, Model model, HttpSession session) {
+		int result = iBankService.withDrawlMoney(amountWithdrawl, (User) session.getAttribute("user"));
 		if(result > 0) {
 			model.addAttribute("withdrawl", new AmountWithdrawl());
 			model.addAttribute("message", "Request Successfully Sent");

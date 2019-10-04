@@ -1,5 +1,7 @@
 package com.cdac.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,33 +27,37 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("user") User user) {
+	public ModelAndView login(@ModelAttribute("user") User user, HttpSession session) {
 		User userFound = iBankService.login(user);
-		
 		if(userFound == null) {
 			return new ModelAndView("index","message","Please check credentials. No user found");
 		}
 		else if(userFound.getRole().equals("USER"))
 		{
+			session.setAttribute("user", user);
 			ModelAndView modelAndView = new ModelAndView("user");
-			modelAndView.addObject("user", userFound);
 			return modelAndView;
 		}
 		else if(userFound.getRole().equals("EMPLOYEE"))
 		{
+			session.setAttribute("user", user);
 			ModelAndView modelAndView = new ModelAndView("employee");
-			modelAndView.addObject("user", userFound);
 			return modelAndView;
 		}
 		else if(userFound.getRole().equals("MANAGER"))
 		{
+			session.setAttribute("user", user);
 			ModelAndView modelAndView = new ModelAndView("manager");
-			modelAndView.addObject("user", userFound);
 			return modelAndView;
 		}
 		else {
 			return new ModelAndView("index","message","Please check credentials. No user found");
 		}
+	}
+	
+	@RequestMapping(value = "/logout", method=RequestMethod.GET)
+	public String logoutUser() {
+		return "redirect://";		
 	}
 
 }

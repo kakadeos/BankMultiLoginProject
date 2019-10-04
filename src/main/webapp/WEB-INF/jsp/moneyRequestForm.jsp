@@ -13,6 +13,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+<!-- Header File Navbar  -->
+<%@ include file="header.jsp"%>
+<!-- Header File Navbar End -->
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
@@ -21,6 +25,7 @@
 				<table border="2" width="100%" cellpadding="2">
 					<tr>
 						<th>ID</th>
+						<th>User</th>
 						<th>Account Number</th>
 						<th>Amount</th>
 						<th>Reason</th>
@@ -31,6 +36,7 @@
 					<c:forEach var="request" items="${list}">
 						<tr>
 						<th>${request.id}</th>
+						<th>${request.username}</th>
 						<th>${request.accountNumber}</th>
 						<th>${request.amount}</th>
 						<th>${request.reason}</th>

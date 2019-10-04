@@ -8,7 +8,7 @@ import com.cdac.bean.User;
 public interface IBankService {
 	public User login(User user);
 
-	public int withDrawlMoney(AmountWithdrawl amountWithdrawl);
+	public int withDrawlMoney(AmountWithdrawl amountWithdrawl, User user);
 
 	public List<AmountWithdrawl> getRequestList();
 

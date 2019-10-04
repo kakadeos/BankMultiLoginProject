@@ -21,8 +21,8 @@ public class BankServiceImpl implements IBankService{
 	}
 
 	@Override
-	public int withDrawlMoney(AmountWithdrawl amountWithdrawl) {
-		return iBankDao.withDrawlMoney(amountWithdrawl);
+	public int withDrawlMoney(AmountWithdrawl amountWithdrawl, User user) {
+		return iBankDao.withDrawlMoney(amountWithdrawl,user);
 	}
 
 	@Override

@@ -40,9 +40,9 @@ public class BankDaoImpl implements IBankDao{
 
 
 	@Override
-	public int withDrawlMoney(AmountWithdrawl amountWithdrawl) {
+	public int withDrawlMoney(AmountWithdrawl amountWithdrawl, User user) {
 		System.out.println(amountWithdrawl);
-		String sql="INSERT INTO banktransaction (accountnumber, amount, reason, paymentstatus) VALUES ('"+amountWithdrawl.getAccountNumber()+"', '"+amountWithdrawl.getAmount()+"', '"+amountWithdrawl.getReason()+"','PENDING')";    
+		String sql="INSERT INTO banktransaction (accountnumber, amount, reason, paymentstatus, username) VALUES ('"+amountWithdrawl.getAccountNumber()+"', '"+amountWithdrawl.getAmount()+"', '"+amountWithdrawl.getReason()+"','PENDING','"+user.getUserName()+"')";    
 		return jdbcTemplate.update(sql);
 	}
 
@@ -58,6 +58,7 @@ public class BankDaoImpl implements IBankDao{
 				amountWithdrawl.setAmount(rs.getInt(3));
 				amountWithdrawl.setReason(rs.getString(4));
 				amountWithdrawl.setPaymentStatus(rs.getString(5));
+				amountWithdrawl.setUsername(rs.getString(6));
 				return amountWithdrawl;    
 			}    
 		});    
@@ -91,6 +92,7 @@ public class BankDaoImpl implements IBankDao{
 				amountWithdrawl.setAmount(rs.getInt(3));
 				amountWithdrawl.setReason(rs.getString(4));
 				amountWithdrawl.setPaymentStatus(rs.getString(5));
+				amountWithdrawl.setUsername(rs.getString(6));
 				return amountWithdrawl;    
 			}    
 		});
