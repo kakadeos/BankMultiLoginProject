@@ -13,4 +13,10 @@ public interface IBankDao {
 
 	public List<AmountWithdrawl> getRequestList();
 
+	public void acceptRequest(int id);
+
+	public void rejectRequest(int id);
+
+	public List<AmountWithdrawl> viewAllRequest();
+
 }

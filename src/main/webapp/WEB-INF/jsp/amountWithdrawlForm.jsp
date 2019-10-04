@@ -6,13 +6,10 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<title>Bank Project</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
 <body>
+<!-- Header File Navbar  -->
+<%@ include file="header.jsp"%>
+<!-- Header File Navbar End -->
 	<div class="container">
 		<div class="row">
 

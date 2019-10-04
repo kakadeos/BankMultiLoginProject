@@ -30,4 +30,21 @@ public class BankServiceImpl implements IBankService{
 		return iBankDao.getRequestList();
 	}
 
+	@Override
+	public void acceptRequest(int id) {
+		iBankDao.acceptRequest(id);
+	}
+
+	@Override
+	public void rejectRequest(int id) {
+		iBankDao.rejectRequest(id);
+	}
+
+	@Override
+	public List<AmountWithdrawl> viewAllRequest() {
+		return iBankDao.viewAllRequest();
+	}
+	
+	
+
 }

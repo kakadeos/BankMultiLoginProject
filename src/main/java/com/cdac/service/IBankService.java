@@ -11,4 +11,10 @@ public interface IBankService {
 	public int withDrawlMoney(AmountWithdrawl amountWithdrawl);
 
 	public List<AmountWithdrawl> getRequestList();
+
+	public void acceptRequest(int id);
+
+	public void rejectRequest(int id);
+
+	public List<AmountWithdrawl> viewAllRequest();
 }

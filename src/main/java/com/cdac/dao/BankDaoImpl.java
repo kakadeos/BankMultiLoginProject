@@ -50,7 +50,7 @@ public class BankDaoImpl implements IBankDao{
 
 	@Override
 	public List<AmountWithdrawl> getRequestList() {
-		return jdbcTemplate.query("select * from banktransaction",new RowMapper<AmountWithdrawl>(){    
+		return jdbcTemplate.query("select * from banktransaction where paymentstatus='PENDING'",new RowMapper<AmountWithdrawl>(){    
 			public AmountWithdrawl mapRow(ResultSet rs, int row) throws SQLException {    
 				AmountWithdrawl amountWithdrawl=new AmountWithdrawl();    
 				amountWithdrawl.setId(rs.getInt(1));
@@ -62,5 +62,40 @@ public class BankDaoImpl implements IBankDao{
 			}    
 		});    
 	}
+
+
+
+	@Override
+	public void acceptRequest(int id) {
+		String sql="UPDATE banktransaction SET  paymentstatus='APPROVED' WHERE id='"+id+"'";    
+		jdbcTemplate.update(sql);		
+	}
+
+
+
+	@Override
+	public void rejectRequest(int id) {
+		String sql="UPDATE banktransaction SET  paymentstatus='REJECTED' WHERE id='"+id+"'";    
+		jdbcTemplate.update(sql);
+	}
+
+
+
+	@Override
+	public List<AmountWithdrawl> viewAllRequest() {
+		return jdbcTemplate.query("select * from banktransaction",new RowMapper<AmountWithdrawl>(){    
+			public AmountWithdrawl mapRow(ResultSet rs, int row) throws SQLException {    
+				AmountWithdrawl amountWithdrawl=new AmountWithdrawl();    
+				amountWithdrawl.setId(rs.getInt(1));
+				amountWithdrawl.setAccountNumber(rs.getString(2));
+				amountWithdrawl.setAmount(rs.getInt(3));
+				amountWithdrawl.setReason(rs.getString(4));
+				amountWithdrawl.setPaymentStatus(rs.getString(5));
+				return amountWithdrawl;    
+			}    
+		});
+	}
+	
+	
 
 }
