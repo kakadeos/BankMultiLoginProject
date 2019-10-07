@@ -19,15 +19,19 @@ public class AuthenticationController {
 	@Autowired
 	IBankService iBankService;
 	
+
+	@Autowired
+	HttpSession session;
+
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
 	public String indexPage(Model model) {
 		model.addAttribute("user", new User());
 		return "index";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("user") User user, HttpSession session) {
+	public ModelAndView login(@ModelAttribute("user") User user) {
 		User userFound = iBankService.login(user);
 		if(userFound == null) {
 			return new ModelAndView("index","message","Please check credentials. No user found");

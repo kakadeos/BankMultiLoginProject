@@ -18,67 +18,96 @@ import com.cdac.service.IBankService;
 
 @Controller
 public class BankController {
-	
+
 	@Autowired
 	IBankService iBankService;
-	
-		
+
+	@Autowired
+	HttpSession session;
+
 	@RequestMapping(value = "/withdrawl", method=RequestMethod.GET)
-	public String withdrawlMoney(Model model, HttpSession session) {
-		model.addAttribute("user", session.getAttribute("user"));
-		model.addAttribute("withdrawl", new AmountWithdrawl());
-		return "amountWithdrawlForm";
-		
-	}
-	
-	@RequestMapping(value = "/requestMoney", method = RequestMethod.POST)
-	public String MoneyRequest(@ModelAttribute("amountWithdrawl") AmountWithdrawl amountWithdrawl, Model model, HttpSession session) {
-		int result = iBankService.withDrawlMoney(amountWithdrawl, (User) session.getAttribute("user"));
-		if(result > 0) {
+	public String withdrawlMoney(Model model) {
+		if(session.getAttribute("user") != null) {
+			model.addAttribute("user", session.getAttribute("user"));
 			model.addAttribute("withdrawl", new AmountWithdrawl());
-			model.addAttribute("message", "Request Successfully Sent");
-			return "amountWithdrawlForm";
-		} else {
-			model.addAttribute("withdrawl", new AmountWithdrawl());
-			model.addAttribute("message", "Transaction failed");
 			return "amountWithdrawlForm";
 		}
+		model.addAttribute("message", "Oops Error occured");
+		return "error";
 	}
-	
+
+	@RequestMapping(value = "/requestMoney", method = RequestMethod.POST)
+	public String MoneyRequest(@ModelAttribute("amountWithdrawl") AmountWithdrawl amountWithdrawl, Model model, HttpSession session) {
+		if(session.getAttribute("user") != null) {
+			int result = iBankService.withDrawlMoney(amountWithdrawl, (User) session.getAttribute("user"));
+			if(result > 0) {
+				model.addAttribute("withdrawl", new AmountWithdrawl());
+				model.addAttribute("message", "Request Successfully Sent");
+				return "amountWithdrawlForm";
+			} else {
+				model.addAttribute("withdrawl", new AmountWithdrawl());
+				model.addAttribute("message", "Transaction failed");
+				return "amountWithdrawlForm";
+			}
+		}
+		model.addAttribute("message", "Oops Error occured");
+		return "error";
+	}
+
 	@RequestMapping(value="/viewRequests")
 	public String viewRequests(Model model) {
-		List<AmountWithdrawl> requestList = iBankService.getRequestList();
-		model.addAttribute("list", requestList);
-		return "moneyRequestForm";
+		if(session.getAttribute("user") != null) {
+			List<AmountWithdrawl> requestList = iBankService.getRequestList();
+			model.addAttribute("list", requestList);
+			return "moneyRequestForm"; 
+		}
+		model.addAttribute("message", "Oops Error occured");
+		return "error";
 	}
-	
-	
+
+
 	@RequestMapping(value="/acceptRequest/{id}")
 	public String acceptRequest(@PathVariable("id")int id, Model model) {
-		System.out.println(id);
-		iBankService.acceptRequest(id);
-		return "redirect:/viewRequests";
+		if(session.getAttribute("user") != null) {
+			System.out.println(id);
+			iBankService.acceptRequest(id);
+			return "redirect:/viewRequests";
+		}
+		model.addAttribute("message", "Oops Error occured");
+		return "error";
 	}
-	
+
 	@RequestMapping(value="/rejectRequest/{id}")
 	public String rejectRequest(@PathVariable("id")int id, Model model) {
-		System.out.println(id);
-		iBankService.rejectRequest(id);
-		return "redirect:/viewRequests";
+		if(session.getAttribute("user") != null) {
+			System.out.println(id);
+			iBankService.rejectRequest(id);
+			return "redirect:/viewRequests";
+		}
+		model.addAttribute("message", "Oops Error occured");
+		return "error";
 	}
-	
+
 	@RequestMapping(value="/viewAllRequests")
 	public String ViewAllRequests(Model model) {
-		List<AmountWithdrawl> list= iBankService.viewAllRequest();
-		model.addAttribute("list", list);
-		return "monitorAllTransaction";		
+		if(session.getAttribute("user") != null) {
+			List<AmountWithdrawl> list= iBankService.viewAllRequest();
+			model.addAttribute("list", list);
+			return "monitorAllTransaction";
+		}
+		model.addAttribute("message", "Oops Error occured");
+		return "error";
 	}
-	
+
 	@RequestMapping(value="/viewUserRequests")
-	public String viewUserRequest(Model model, HttpSession session) {
-		User user = (User)session.getAttribute("user");
-		List<AmountWithdrawl> requestList = iBankService.getUserRequest(user.getUserName());
-		model.addAttribute("list", requestList);
-		return "viewUserRequest";
+	public String viewUserRequest(Model model) {
+		if(session.getAttribute("user") != null) {
+			User user = (User)session.getAttribute("user");
+			List<AmountWithdrawl> requestList = iBankService.getUserRequest(user.getUserName());
+			model.addAttribute("list", requestList);
+			return "viewUserRequest";
+		}
+		model.addAttribute("message", "Oops Error occured");
+		return "error";
 	}
 }
