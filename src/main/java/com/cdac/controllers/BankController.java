@@ -110,4 +110,11 @@ public class BankController {
 		model.addAttribute("message", "Oops Error occured");
 		return "error";
 	}
+	
+	@RequestMapping(value="/searchRequest")
+	public String searchRequest() {
+		return "searchRequest";
+	}
+	
+	
 }
