@@ -49,6 +49,11 @@ public class BankServiceImpl implements IBankService{
 	public List<AmountWithdrawl> getUserRequest(String userName) {
 		return iBankDao.getUserRequest(userName);
 	}
+
+	@Override
+	public List<AmountWithdrawl> getMyRequest(String reason, String username) {
+		return iBankDao.getMyRequest(reason, username);
+	}
 	
 	
 

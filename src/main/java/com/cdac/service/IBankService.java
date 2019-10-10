@@ -19,4 +19,6 @@ public interface IBankService {
 	public List<AmountWithdrawl> viewAllRequest();
 
 	public List<AmountWithdrawl> getUserRequest(String userName);
+
+	public List<AmountWithdrawl> getMyRequest(String reason, String username);
 }

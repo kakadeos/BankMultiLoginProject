@@ -9,3 +9,4 @@
 
 <a href="withdrawl">Submit Claim</a>
 <a href="viewUserRequests">View My Request</a>
+<a href="searchRequest">Search Request</a>

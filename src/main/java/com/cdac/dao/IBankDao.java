@@ -21,4 +21,6 @@ public interface IBankDao {
 
 	public List<AmountWithdrawl> getUserRequest(String userName);
 
+	public List<AmountWithdrawl> getMyRequest(String reason, String username);
+
 }

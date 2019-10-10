@@ -1,6 +1,10 @@
 package com.cdac.controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cdac.bean.AmountWithdrawl;
 import com.cdac.bean.User;
@@ -110,11 +115,26 @@ public class BankController {
 		model.addAttribute("message", "Oops Error occured");
 		return "error";
 	}
-	
+
 	@RequestMapping(value="/searchRequest")
 	public String searchRequest() {
 		return "searchRequest";
+
 	}
-	
-	
+
+	@RequestMapping(value = "/{reason}", method = RequestMethod.POST)
+	public String sqlAttck(@RequestParam("reason")String reason, Model model) {
+		if(session.getAttribute("user") != null) {
+			System.out.println(reason);
+			User user = (User)session.getAttribute("user");
+			System.out.println(user.getUserName());
+			List<AmountWithdrawl> list = iBankService.getMyRequest(reason, user.getUserName());
+			model.addAttribute("list", list);
+			return "searchRequest";
+		}
+		model.addAttribute("message", "error");
+		return "searchRequest";
+	}
+
+
 }
