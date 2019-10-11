@@ -43,6 +43,7 @@ public class BankController {
 
 	@RequestMapping(value = "/requestMoney", method = RequestMethod.POST)
 	public String MoneyRequest(@ModelAttribute("amountWithdrawl") AmountWithdrawl amountWithdrawl, Model model, HttpSession session) {
+		System.out.println(amountWithdrawl);
 		if(session.getAttribute("user") != null) {
 			int result = iBankService.withDrawlMoney(amountWithdrawl, (User) session.getAttribute("user"));
 			if(result > 0) {
