@@ -15,11 +15,12 @@
 <body>
 	<div class="container">
 		<div class="row">
-			
+
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-			<h1>Bank Login System</h1>
+				<h1>Bank Login System</h1>
 				<form:form action="login" modelAttribute="user">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="input-group">
 						Username :
 						<form:input class="form-control" path="userName" />

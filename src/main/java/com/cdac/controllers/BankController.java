@@ -128,9 +128,15 @@ public class BankController {
 			System.out.println(reason);
 			User user = (User)session.getAttribute("user");
 			System.out.println(user.getUserName());
+			try {
 			List<AmountWithdrawl> list = iBankService.getMyRequest(reason, user.getUserName());
 			model.addAttribute("list", list);
 			return "searchRequest";
+			}
+			catch (Exception e) {
+				model.addAttribute("message", "error");
+				return "searchRequest";
+			}
 		}
 		model.addAttribute("message", "error");
 		return "searchRequest";
